@@ -21,10 +21,19 @@ import java.util.List;
 
 public class Main extends Application {
 
+    //Vytvoření proměnných a jejich hodnot
+
     private static final int P = 8;
     private static final int R = 4;
     private K selected = null;
     private int pocetKliknuti = 2;
+
+    /*
+    Tato část kódu vytváří nová pole a kartičky pexesa.
+
+    Nejdříve vztvoří "kartičky" a následně je ve smyčce
+    rozdistribuuje na herní plochu neboli scénu hry.
+     */
 
     private Parent vytvor(){
         Pane root = new Pane();
@@ -49,14 +58,24 @@ public class Main extends Application {
         return root;
     }
 
+    //Tato část vytváří hlavní scénu a tím pádem také základní panel hry.
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setScene(new Scene(vytvor()));
         primaryStage.show();
      }
 
+     //Tento celý blok kódu má na starost označení kartiček a všechny akce s nimi.
+
+
     private class K extends StackPane {
-        private Text text = new Text();
+        private final Text text = new Text();
+
+        /*
+        Tento kousek kódu vypisuje na kartičky písmena podle jejich hodnoty získané výše
+         a je zde zakódováno jakou barvou a jakou velikostí se kartičky nakonec zobrazí.
+         */
 
         public K (String value){
             Rectangle ram = new Rectangle(50,50);
@@ -69,6 +88,8 @@ public class Main extends Application {
             setOnMouseClicked(this::handleMouseClicked);
             zavrit();
         }
+
+        //Zde můžete vyčíst počet kliknutí a změny, které se po kliknutí s kartičkou stanou.
 
         public void handleMouseClicked(MouseEvent event){
             if(jeOtevreno() || pocetKliknuti == 0)
@@ -92,9 +113,13 @@ public class Main extends Application {
             }
         }
 
+        //Toto zajišťuje, že když na kartičku kliknete a ta se "otočí", tak se zobrazí její hodnota.
+
         public boolean jeOtevreno(){
             return text.getOpacity()==1;
         }
+
+        //Zde je funkce, která "otáčí" kartičky.
 
         public void otevrit(Runnable action){
             FadeTransition ft = new FadeTransition(Duration.seconds(0.5), text);
@@ -103,16 +128,22 @@ public class Main extends Application {
             ft.play();
         }
 
+        //Zde naopak po otočení kartiček je tato funkce "otočí" zas zpátky.
+
         public void zavrit(){
             FadeTransition ft = new FadeTransition(Duration.seconds(0.5), text);
             ft.setToValue(0);
             ft.play();
         }
 
+        //Tato funkce jen porovnává hodnotu kartiček.
+
         public boolean maStejnouHodnotu(K other){
             return text.getText().equals(other.text.getText());
         }
     }
+
+    //A na závěr tato hlavní funkce celou aplikaci spouští.
 
     public static void main(String[] args) {
         launch(args);
