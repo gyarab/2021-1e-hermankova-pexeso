@@ -23,15 +23,15 @@ public class Main extends Application {
 
     //Vytvoření proměnných a jejich hodnot
 
-    private static final int P = 8;
-    private static final int R = 4;
+    private static final int P = 10;
+    private static final int R = 5;
     private K selected = null;
     private int pocetKliknuti = 2;
 
     /*
-    Tato část kódu vytváří nová pole a kartičky pexesa.
+    Tato část kódu vytváří hrací plochu a kartičky pexesa.
 
-    Nejdříve vztvoří "kartičky" a následně je ve smyčce
+    Nejdříve vytvoří "kartičky" a následně je ve smyčce
     rozdistribuuje na herní plochu neboli scénu hry.
      */
 
@@ -73,7 +73,7 @@ public class Main extends Application {
         private final Text text = new Text();
 
         /*
-        Tento kousek kódu vypisuje na kartičky písmena podle jejich hodnoty získané výše
+        Tento konstruktor vypisuje na kartičky písmena podle jejich hodnoty získané výše
          a je zde zakódováno jakou barvou a jakou velikostí se kartičky nakonec zobrazí.
          */
 
@@ -136,7 +136,7 @@ public class Main extends Application {
             ft.play();
         }
 
-        //Tato funkce jen porovnává hodnotu kartiček.
+        //Tato funkce porovnává hodnotu kartiček.
 
         public boolean maStejnouHodnotu(K other){
             return text.getText().equals(other.text.getText());
